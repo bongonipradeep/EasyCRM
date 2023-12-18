@@ -1,0 +1,18 @@
+﻿@model EasyCRM.Models.ViewModels.ProductVM;
+@using (Html.BeginForm("SaveProductd", "Product", FormMethod.Post))
+{
+    <div>
+        @Html.HiddenFor(x => x.ProductId)
+        <label> Product Name</label>
+        <input type="text" asp-for="ProductName" required />
+
+        <label> Product Price</label>
+        <input type="text" asp-for="ProductPrice" required />
+
+        <label> Product Description</label>
+        <input type="text" asp-for="ProductDescription" required />
+
+       
+        <input type="submit" value="Save" />
+    </div>
+}

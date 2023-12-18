@@ -1,0 +1,40 @@
+﻿@using EasyCRM.Models.ViewModels;
+@model IEnumerable<EmployeeVM>;
+@{
+    ViewData["Title"] = "Employee";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table, th, td {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <table widht="100%">
+        <tr>
+            <th>Employee Id</th>
+            <th>Employee Name</th>
+            <th>Employee City</th>
+            <th>Employee Address</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.EmployeeId</td>
+                <td>@item.EmployeeName</td>
+                <td>@item.EmployeeCity</td>
+                <td>@item.EmployeeAddress</td>
+                <td><a href="@Url.Action("Edit","Employee")/@item.EmployeeId">Edit</a></td>
+                <td><a href="@Url.Action("Delete","Employee")/@item.EmployeeId">Delete</a></td>
+            </tr>
+
+        }
+    </table>
+
+
+    <a class="btn btn-primary" href="@Url.Action("Add","Employee")">Add</a>
+</body>
+</html>

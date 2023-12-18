@@ -1,0 +1,40 @@
+﻿@using EasyCRM.Models.ViewModels;
+@model IEnumerable<ProductVM>;
+@{
+    ViewData["Title"] = "Product";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table, th, td {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <table widht="100%">
+        <tr>
+            <th>Product Id</th>
+            <th>Product Name</th>
+            <th>Product Description</th>
+            <th>Product Price</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductId</td>
+                <td>@item.ProductName</td>
+                <td>@item.ProductDescription</td>
+                <td>@item.ProductPrice</td>
+                <td><a href="@Url.Action("Edit","Product")/@item.ProductId">Edit</a></td>
+                <td><a href="@Url.Action("Delete","Product")/@item.ProductId">Delete</a></td>
+            </tr>
+
+        }
+    </table>
+
+
+    <a class="btn btn-primary" href="@Url.Action("Add","Product")">Add</a>
+</body>
+</html>

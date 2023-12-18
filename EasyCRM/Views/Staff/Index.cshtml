@@ -1,0 +1,37 @@
+﻿@using EasyCRM.Models.ViewModels;
+@model IEnumerable<StaffVM>;
+@{
+    ViewData["Title"] = "Staff";
+    int sno = 1;
+}
+
+<table widht="100%" id="tabledata">
+    <thead>
+        <tr>
+            <th>SlNo</th>
+            <th>Staff Name</th>
+            <th>Staff Address</th>
+            <th>Staff Phone</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@sno</td>
+                <td>@item.StaffName</td>
+                <td>@item.StaffAddress</td>
+                <td>@item.StaffPhone</td>
+                <td>
+                    <a href="@Url.Action("Edit","Staff")/@item.StaffId"><i class="fa fa-edit"></i></a>
+                    <a href="@Url.Action("Delete","Staff")/@item.StaffId"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+            sno++;
+        }
+    </tbody>
+</table>
+
+
+<a class="btn btn-primary" href="@Url.Action("Add","Staff")">Add</a>
