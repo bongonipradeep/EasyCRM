@@ -3,6 +3,7 @@ using EasyCRM.BAL.Interface;
 using EasyCRM.DAL.Entity.DataModel;
 using EasyCRM.Models.ViewModels;
 using EasyCRM.BAL.Service;
+using EasyCRM.Models;
 
 namespace EasyCRM.Controllers
 {
@@ -28,7 +29,20 @@ namespace EasyCRM.Controllers
 
             return View(staff);
         }
+        [HttpPost]
+        public async Task<IActionResult> Index(StaffFilterVM filter)
+        {
+            List<StaffVM> staff = new List<StaffVM>();
 
+            if (!string.IsNullOrEmpty(filter.StaffName))
+            {
+                staff = await _staffService.GetStaffs(filter.StaffName);
+            }
+            else
+                staff = await _staffService.GetStaffs();
+
+            return View(staff);
+        }
         public async Task<IActionResult> SaveStaff(StaffVM obj)
         {
 

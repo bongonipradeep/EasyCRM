@@ -3,6 +3,7 @@ using EasyCRM.BAL.Interface;
 using EasyCRM.DAL.Entity.DataModel;
 using EasyCRM.Models.ViewModels;
 using EasyCRM.BAL.Service;
+using EasyCRM.Models;
 
 namespace EasyCRM.Controllers
 {
@@ -28,7 +29,20 @@ namespace EasyCRM.Controllers
 
             return View(products);
         }
+        [HttpPost]
+        public async Task<IActionResult> Index(ProductFilterVM filter)
+        {
+            List<ProductVM> products = new List<ProductVM>();
 
+            if (!string.IsNullOrEmpty(filter.ProductName))
+            {
+                products = await _productService.GetProducts(filter.ProductName);
+            }
+            else
+                products = await _productService.GetProducts();
+
+            return View(products);
+        }
         public async Task<IActionResult> SaveProductd(ProductVM obj)
         {
 

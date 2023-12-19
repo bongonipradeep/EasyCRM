@@ -4,7 +4,15 @@
     ViewData["Title"] = "Staff";
     int sno = 1;
 }
-
+<div>
+    <form asp-action="Index" asp-controller="Staff" method="post">
+        <div class="form-group">
+            <span>Staff Name</span>
+            <input type="text" id="staffName" name="staffName" />
+        </div>
+        <input type="submit" value=" filter" />
+    </form>
+</div>
 <table widht="100%" id="tabledata">
     <thead>
         <tr>

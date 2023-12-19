@@ -3,6 +3,7 @@ using EasyCRM.DAL.Entity.DataModel;
 using Microsoft.AspNetCore.Mvc;
 using EasyCRM.Models.ViewModels;
 using EasyCRM.DAL.Migrations;
+using EasyCRM.Models;
 
 namespace EasyCRM.Controllers
 {
@@ -10,20 +11,13 @@ namespace EasyCRM.Controllers
     {
         private readonly ICompanyService _companyservice;
         private readonly ILogger<CompanyController> _logger;
-        public CompanyController(ILogger<CompanyController> logger, ICompanyService companyservice) 
-        { 
+        public CompanyController(ILogger<CompanyController> logger, ICompanyService companyservice)
+        {
             _logger = logger;
             _companyservice = companyservice;
         }
-        public async Task<IActionResult> Index(string filter_companyName = "") 
+        public async Task<IActionResult> Index(string filter_companyName = "")
         {
-            //List<CompanyVM> companies = await _companyservice.GetCompanyName();
-            //if (!string.IsNullOrEmpty(filter_companyName))
-            //{
-            //    companies = await _companyservice.GetCompanyByName(filter_companyName);
-            //}
-            //return View(companies);
-
             List<CompanyVM> companies = new List<CompanyVM>();
 
             if (!string.IsNullOrEmpty(filter_companyName))
@@ -31,8 +25,22 @@ namespace EasyCRM.Controllers
                 companies = await _companyservice.GetCompanyByName(filter_companyName);
             }
             else
-              companies = await _companyservice.GetCompanyName();
-            
+                companies = await _companyservice.GetCompanyName();
+
+            return View(companies);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(CompanyFilterVM filter)
+        {
+            List<CompanyVM> companies = new List<CompanyVM>();
+
+            if (!string.IsNullOrEmpty(filter.companyName))
+            {
+                companies = await _companyservice.GetCompanyByName(filter.companyName);
+            }
+            else
+                companies = await _companyservice.GetCompanyName();
+
             return View(companies);
         }
 
@@ -40,7 +48,7 @@ namespace EasyCRM.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveCompany(CompanyVM obj)
         {
-            
+
             if (obj.CompanyId > 0)
             {
                 await _companyservice.UpdateCompany(obj);
