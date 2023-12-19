@@ -3,6 +3,7 @@ using EasyCRM.BAL.Interface;
 using EasyCRM.DAL.Entity.DataModel;
 using EasyCRM.Models.ViewModels;
 using EasyCRM.BAL.Service;
+using EasyCRM.Models;
 
 namespace EasyCRM.Controllers
 {
@@ -28,7 +29,20 @@ namespace EasyCRM.Controllers
 
             return View(engineers);
         }
+        [HttpPost]
+        public async Task<IActionResult> Index(EngineerFilterVM filter)
+        {
+            List<EngineerVM> engineers = new List<EngineerVM>();
 
+            if (!string.IsNullOrEmpty(filter.EngineerName))
+            {
+                engineers = await _engineersService.GetEngineers(filter.EngineerName);
+            }
+            else
+                engineers = await _engineersService.GetEngineers();
+
+            return View(engineers);
+        }
         public async Task<IActionResult> SaveEngineers(EngineerVM obj)
         {
 

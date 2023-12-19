@@ -13,6 +13,15 @@
     </style>
 </head>
 <body>
+    <div>
+        <form asp-action="Index" asp-controller="Product" method="post">
+            <div class="form-group">
+                <span>Product Name</span>
+                <input type="text" id="productName" name="productName" />
+            </div>
+            <input type="submit" value=" filter" />
+        </form>
+    </div>
     <table widht="100%">
         <tr>
             <th>Product Id</th>

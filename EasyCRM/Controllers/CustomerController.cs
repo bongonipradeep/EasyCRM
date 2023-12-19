@@ -3,6 +3,7 @@ using EasyCRM.BAL.Interface;
 using EasyCRM.DAL.Entity.DataModel;
 using EasyCRM.Models.ViewModels;
 using EasyCRM.BAL.Service;
+using EasyCRM.Models;
 
 namespace EasyCRM.Controllers
 {
@@ -29,6 +30,21 @@ namespace EasyCRM.Controllers
 
             return View(customers);
             
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(CustomerFilterVM filter)
+        {
+            List<CustomerVM> customers = new List<CustomerVM>();
+
+            if (!string.IsNullOrEmpty(filter.CustomerName))
+            {
+                customers = await _customersService.GetCustomers(filter.CustomerName);
+            }
+            else
+                customers = await _customersService.GetCustomers();
+
+            return View(customers);
+
         }
         [HttpPost]
         public async Task<IActionResult> SaveCustomer(CustomerVM obj)
