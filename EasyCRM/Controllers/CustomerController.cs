@@ -19,6 +19,7 @@ namespace EasyCRM.Controllers
         }
         public async Task<IActionResult> Index(string filter_customerName = "")
         {
+            _logger.LogInformation("FilterCustomer By Customer...");
             List<CustomerVM> customers = new List<CustomerVM>();
 
             if (!string.IsNullOrEmpty(filter_customerName))
@@ -34,6 +35,7 @@ namespace EasyCRM.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(CustomerFilterVM filter)
         {
+            _logger.LogInformation("FilterCustomer By Customer...");
             List<CustomerVM> customers = new List<CustomerVM>();
 
             if (!string.IsNullOrEmpty(filter.CustomerName))
@@ -49,7 +51,7 @@ namespace EasyCRM.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveCustomer(CustomerVM obj)
         {
-
+            _logger.LogInformation("SaveCustomer..");
             if (obj.CustomerId > 0)
             {
                 await _customersService.UpdateCustomer(obj);
@@ -63,16 +65,19 @@ namespace EasyCRM.Controllers
         }
         public IActionResult Add()
         {
+            _logger.LogInformation("Add Customer..");
             return View();
 
         }
         public async Task<IActionResult> Edit(int id)
         {
+            _logger.LogInformation("Edit Customer..");
             var customer = await _customersService.GetCustomerById(id);
             return View(customer);
         }
         public async Task<IActionResult> Delete(int id)
         {
+            _logger.LogInformation("Delete Customer..");
             //var company = await _companyservice.GetCompanyById(id);
             await _customersService.DeleteCustomer(id);
             return RedirectToAction(nameof(Index));

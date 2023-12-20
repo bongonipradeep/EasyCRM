@@ -18,6 +18,7 @@ namespace EasyCRM.Controllers
         }
         public async Task<IActionResult> Index(string filter_engineerName="")
         {
+            _logger.LogInformation("FilterEngineer By Engineer...");
             List<EngineerVM> engineers = new List<EngineerVM>();
 
             if (!string.IsNullOrEmpty(filter_engineerName))
@@ -32,6 +33,7 @@ namespace EasyCRM.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(EngineerFilterVM filter)
         {
+            _logger.LogInformation("FilterEngineer By Engineer...");
             List<EngineerVM> engineers = new List<EngineerVM>();
 
             if (!string.IsNullOrEmpty(filter.EngineerName))
@@ -45,7 +47,7 @@ namespace EasyCRM.Controllers
         }
         public async Task<IActionResult> SaveEngineers(EngineerVM obj)
         {
-
+            _logger.LogInformation("Save Engineers...");
             if (obj.EngineerId > 0)
             {
                 await _engineersService.UpdateEngineer(obj);
@@ -59,16 +61,19 @@ namespace EasyCRM.Controllers
         }
         public IActionResult Add()
         {
+            _logger.LogInformation("Add Engineers...");
             return View();
 
         }
         public async Task<IActionResult> Edit(int id)
         {
+            _logger.LogInformation("Edit Engineers...");
             var engineer  = await _engineersService.GetEngineerById(id);
             return View(engineer);
         }
         public async Task<IActionResult> Delete(int id)
         {
+            _logger.LogInformation("Delete Engineers...");
             //var company = await _companyservice.GetCompanyById(id);
             await _engineersService.DeleteEngineer(id);
             return RedirectToAction(nameof(Index));

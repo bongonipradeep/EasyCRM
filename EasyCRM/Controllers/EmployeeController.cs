@@ -19,6 +19,7 @@ namespace EasyCRM.Controllers
         }
         public async Task<IActionResult> Index(string filter_employeeName = "")
         {
+            _logger.LogInformation("FilterEmployee By Employee...");
             List<EmployeeVM> employees = new List<EmployeeVM>();
 
             if (!string.IsNullOrEmpty(filter_employeeName))
@@ -33,6 +34,7 @@ namespace EasyCRM.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(EmployeeFilterVM filter)
         {
+            _logger.LogInformation("FilterEmployee By Employee...");
             List<EmployeeVM> employees = new List<EmployeeVM>();
 
             if (!string.IsNullOrEmpty(filter.EmployeeName))
@@ -46,7 +48,7 @@ namespace EasyCRM.Controllers
         }
         public async Task<IActionResult> SaveEmployee(EmployeeVM obj)
         {
-
+            _logger.LogInformation("Save Employee..");
             if (obj.EmployeeId > 0)
             {
                 await _employeeservice.UpdateEmployee(obj);
@@ -60,16 +62,19 @@ namespace EasyCRM.Controllers
         }
         public IActionResult Add()
         {
+            _logger.LogInformation("Add Employee..");
             return View();
 
         }
         public async Task<IActionResult> Edit(int id)
         {
+            _logger.LogInformation("Edit Employee..");
             var employee = await _employeeservice.GetEmployeeById(id);
             return View(employee);
         }
         public async Task<IActionResult> Delete(int id)
         {
+            _logger.LogInformation("Delete Employee..");
             //var company = await _companyservice.GetCompanyById(id);
             await _employeeservice.DeleteEmployee(id);
             return RedirectToAction(nameof(Index));

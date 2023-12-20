@@ -29,5 +29,7 @@ namespace EasyCRM.DAL.Entity
         public DbSet<Employee> Employes { get; set; }
         public DbSet<Engineer> Engineers { get; set; }
         public DbSet<Staff> Staffs { get; set; }
+
+        public DbSet<CustomerEnquiry> CustomerEnquiries { get; set;}
     }
 }

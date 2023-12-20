@@ -18,6 +18,7 @@ namespace EasyCRM.Controllers
         }
         public async Task<IActionResult> Index(string filter_productName = "")
         {
+            _logger.LogInformation("FilterProduct By Product...");
             List<ProductVM> products = new List<ProductVM>();
 
             if (!string.IsNullOrEmpty(filter_productName))
@@ -32,6 +33,7 @@ namespace EasyCRM.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(ProductFilterVM filter)
         {
+            _logger.LogInformation("FilterProduct By Product...");
             List<ProductVM> products = new List<ProductVM>();
 
             if (!string.IsNullOrEmpty(filter.ProductName))
@@ -45,7 +47,7 @@ namespace EasyCRM.Controllers
         }
         public async Task<IActionResult> SaveProductd(ProductVM obj)
         {
-
+            _logger.LogInformation("Save Productd...");
             if (obj.ProductId > 0)
             {
                 await _productService.UpdateProduct(obj);
@@ -59,16 +61,19 @@ namespace EasyCRM.Controllers
         }
         public IActionResult Add()
         {
+            _logger.LogInformation("Add Productd...");
             return View();
 
         }
         public async Task<IActionResult> Edit(int id)
         {
+            _logger.LogInformation("Edit Productd...");
             var product = await _productService.GetProductById(id);
             return View(product);
         }
         public async Task<IActionResult> Delete(int id)
         {
+            _logger.LogInformation("Delete Productd...");
             //var company = await _companyservice.GetCompanyById(id);
             await _productService.DeleteProduct(id);
             return RedirectToAction(nameof(Index));

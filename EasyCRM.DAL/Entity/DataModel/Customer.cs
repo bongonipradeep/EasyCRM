@@ -12,6 +12,10 @@ namespace EasyCRM.DAL.Entity.DataModel
     [Table("Customer")]
     public class Customer
     {
+        public Customer()
+        {
+            this.CustomerEnquiries = new HashSet<CustomerEnquiry>();
+        }
         [Key] // Primary Key
         public int CustomerId { get; set; }
         [Required]
@@ -24,5 +28,7 @@ namespace EasyCRM.DAL.Entity.DataModel
 
         public string? CustomerCity { get; set; }
         public string? CustomerRegion { get; set; }
+
+        public virtual ICollection<CustomerEnquiry> CustomerEnquiries { get; set; }
     }
 }

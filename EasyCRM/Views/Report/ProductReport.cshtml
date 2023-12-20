@@ -1,0 +1,42 @@
+﻿@using EasyCRM.Models.ViewModels;
+@model IEnumerable<ProductReportVM>;
+@{
+    ViewData["Title"] = "CustomerReport";
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+   
+    <style>
+        table, th, td {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+
+    <table widht="100%">
+        <tr>
+
+            <th>ProductName</th>
+            <th>CompanyName</th>
+            <th>CustomerName</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@item.productName</td>
+                <td>@item.companyName</td>
+                <td>@item.customerName</td>
+
+            </tr>
+
+        }
+    </table>
+
+
+
+</body>
+</html>

@@ -22,6 +22,8 @@ namespace EasyCRM
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IStaffRepository, StaffRepository>();
             builder.Services.AddScoped<IStaffService, StaffService>();
+            builder.Services.AddScoped<IReportRepository, ReportRepository>();
+            builder.Services.AddScoped<IReportService, ReportService>();
 
 
 

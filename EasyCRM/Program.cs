@@ -1,9 +1,12 @@
 using EasyCRM;
 using EasyCRM.DAL.Entity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+
 
 var builder = WebApplication.CreateBuilder(args);
 //Declaring and Regestring the connection(DbContect connection)
+builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 var connectionstring = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlServer(connectionstring), ServiceLifetime.Transient);
 
@@ -34,7 +37,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseAuthorization();
-
+app.UseSerilogRequestLogging();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
